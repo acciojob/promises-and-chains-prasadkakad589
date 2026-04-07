@@ -1,19 +1,21 @@
 let btn = document.getElementById("btn");
 
-function msg(event) {
+btn.addEventListener("click", function (event) {
   event.preventDefault(); // stop form reload
 
   let age = document.getElementById("age").value.trim();
   let name = document.getElementById("name").value.trim();
 
+  // Validation
   if (age === "" || name === "") {
-    alert("Please enter valid details.");
+    alert("Please enter valid details");
     return;
   }
 
-  let promise1 = new Promise((resolve, reject) => {
+  // Promise logic
+  let promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (age > 18) {
+      if (Number(age) > 18) {
         resolve(`Welcome, ${name}. You can vote.`);
       } else {
         reject(`Oh sorry ${name}. You aren't old enough.`);
@@ -21,13 +23,12 @@ function msg(event) {
     }, 4000);
   });
 
-  promise1
-    .then((data) => {
-      alert(data);
+  // Handle result
+  promise
+    .then((msg) => {
+      alert(msg);
     })
     .catch((err) => {
       alert(err);
     });
-}
-
-btn.addEventListener("click", msg);
+});
